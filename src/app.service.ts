@@ -1,6 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Logger } from '@nestjs/common';
 
+const sleep = (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+};
+
 @Injectable()
 export class AppService {
   private readonly logger = new Logger(AppService.name);
@@ -17,6 +23,7 @@ export class AppService {
   async setValue(key: string, value: string): Promise<boolean> {
     this.logger.log(`setValue(${key}, ${value})`);
     const retVal: boolean = false;
+    await sleep(300);
     return retVal;
   }
 }
