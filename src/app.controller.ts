@@ -16,17 +16,29 @@ export class AppController {
 
   @Get('value')
   async getValue(@Query('key') key: string): Promise<string> {
+    const retVal = await this.appService.getValue(key);
+    const result: any = {
+      code: '20000',
+      message: 'Success',
+      results: retVal,
+    };
     this.logger.log(`Calling getValue(${key}): ${AppController.name}`);
-    return this.appService.getValue(key);
+    return result;
   }
 
   @Post('value')
   async setValue(@Body() body): Promise<boolean> {
     const key = body['key'];
     const value = body['value'];
+    const retVal = await this.appService.setValue(key, value);
+    const result: any = {
+      code: '20000',
+      message: 'Success',
+      results: retVal,
+    };
     this.logger.log(
       `Calling setValue(${key}, ${value}): ${AppController.name}`,
     );
-    return this.appService.setValue(key, value);
+    return result;
   }
 }
